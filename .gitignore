@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-wheel-metadata/
+*.egg-info/
+
+# VSCode / IDE
+.vscode/
+.idea/
+
+# Benchmark artifacts
+tmp/
+results/
+reports/
+*.bin
+*.img
+*.log
+
+# OS
+Thumbs.db
+Desktop.ini
+

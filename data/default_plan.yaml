@@ -1,0 +1,7 @@
+# Default benchmark plan values
+file_size_mb: 2048
+block_size_kb: 1024
+random_samples: 4096
+random_block_kb: 4
+cleanup: true
+

@@ -1,0 +1,62 @@
+sd_cards:
+  - name: "SanDisk MicroSDXC 128GB Creator Series A2 C10"
+    capacity_gb: 128
+    price_thb: 500
+    read_mb_s: 190
+    write_mb_s: 90
+    application_class: "A2"
+    u_class: "U3"
+    v_class: "V30"
+    endurance_notes: "High throughput for AI workloads"
+    tier: "Edge AI / Model Deployment"
+  - name: "SanDisk Extreme Pro MicroSDXC 64GB"
+    capacity_gb: 64
+    price_thb: 400
+    read_mb_s: 200
+    write_mb_s: 90
+    application_class: "A2"
+    u_class: "U3"
+    v_class: "V30"
+    endurance_notes: "Excellent for real-time camera feeds"
+    tier: "Edge Vision / High Performance"
+  - name: "Lexar MicroSDHC 64GB High Performance 633x"
+    capacity_gb: 64
+    price_thb: 300
+    read_mb_s: 100
+    write_mb_s: null
+    application_class: "A1"
+    u_class: "U3"
+    v_class: "V30"
+    endurance_notes: "Balanced option for prototyping"
+    tier: "Prototype / Logging"
+  - name: "SanDisk High Endurance MicroSDXC 64GB"
+    capacity_gb: 64
+    price_thb: 300
+    read_mb_s: 100
+    write_mb_s: 40
+    application_class: "A3"
+    u_class: null
+    v_class: "V30"
+    endurance_notes: "Optimised for continuous write workloads"
+    tier: "Camera / Continuous Recording"
+  - name: "SanDisk Ultra MicroSDXC 64GB"
+    capacity_gb: 64
+    price_thb: 200
+    read_mb_s: 140
+    write_mb_s: null
+    application_class: "A1"
+    u_class: "U1"
+    v_class: null
+    endurance_notes: "Entry-level option for experimentation"
+    tier: "Prototype / Low Cost"
+  - name: "SanDisk Extreme MicroSDXC 64GB"
+    capacity_gb: 64
+    price_thb: 200
+    read_mb_s: 170
+    write_mb_s: 80
+    application_class: "A2"
+    u_class: "U3"
+    v_class: "V30"
+    endurance_notes: "Versatile card for AI camera pipelines"
+    tier: "Edge Vision / Balanced"
+
