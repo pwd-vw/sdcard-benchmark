@@ -15,7 +15,8 @@ Utility repository for evaluating SD card performance on Raspberry Pi 5 + Hailo-
    ```
    python scripts/run_benchmark.py "SanDisk Extreme MicroSDXC 64GB" D:\ --results-dir results
    ```
-   Replace `D:\` with the mounted path for the SD card.
+   Replace `D:\` with the mounted path for the SD card (omit it to choose interactively).  
+   You can omit the card name to choose from the known cards or enter a new card interactively.
 6. Repeat for each SD card product, using the same plan or adjusting `data/default_plan.yaml`.
 
 ## Reports

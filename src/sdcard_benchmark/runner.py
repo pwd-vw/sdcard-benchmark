@@ -8,7 +8,7 @@ import random
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Dict, Iterable, List
+from typing import Callable, Dict, Iterable, List, Optional
 
 from .config import BenchmarkPlan, SDCard
 from .metrics import iops, latency_ms, throughput_mb_s
@@ -56,12 +56,14 @@ class BenchmarkRunner:
         plan: BenchmarkPlan | None = None,
         work_dir: str | Path | None = None,
         seed: int | None = None,
+        progress_callback: Optional[Callable[[str], None]] = None,
     ) -> None:
         self.card = card
         self.target_path = Path(target_path)
         self.plan = plan or BenchmarkPlan()
         self.work_dir = Path(work_dir) if work_dir else Path.cwd() / "results"
         self.seed = seed or int(time.time())
+        self._progress_callback = progress_callback
 
         self._random = random.Random(self.seed)
         self.work_dir.mkdir(parents=True, exist_ok=True)
@@ -71,10 +73,16 @@ class BenchmarkRunner:
         if not self.target_path.is_dir():
             raise NotADirectoryError(f"Target path {self.target_path} is not a directory")
 
+    def _notify(self, message: str) -> None:
+        if self._progress_callback:
+            self._progress_callback(message)
+
     def run(self) -> BenchmarkOutcome:
+        self._notify("Starting benchmark execution.")
         start_ts = time.time()
         results = list(self._execute_suite())
         end_ts = time.time()
+        self._notify("Benchmark execution complete.")
 
         outcome = BenchmarkOutcome(
             card=self.card,
@@ -109,22 +117,31 @@ class BenchmarkRunner:
             raise ValueError("file_size_mb must be greater than zero")
 
         # Sequential write
+        self._notify("Running sequential write test...")
         write_result = self._measure_write(test_file, total_bytes, block_bytes)
+        self._notify("Sequential write test finished.")
         yield write_result
 
         # Sequential read
+        self._notify("Running sequential read test...")
         read_result = self._measure_read(test_file, block_bytes)
+        self._notify("Sequential read test finished.")
         yield read_result
 
         # Random read
+        self._notify("Running random read test...")
         random_read_result = self._measure_random(test_file, random_block_bytes, plan.random_samples, write=False)
+        self._notify("Random read test finished.")
         yield random_read_result
 
         # Random write (in-place)
+        self._notify("Running random write test...")
         random_write_result = self._measure_random(test_file, random_block_bytes, plan.random_samples, write=True)
+        self._notify("Random write test finished.")
         yield random_write_result
 
         if plan.cleanup and test_file.exists():
+            self._notify("Cleaning up temporary benchmark files.")
             test_file.unlink()
 
     def _measure_write(self, path: Path, total_bytes: int, block_bytes: int) -> TestOutcome:
